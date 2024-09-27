@@ -1,13 +1,18 @@
-
 package Pages;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 
+
 public class Order extends javax.swing.JFrame {
+
+    String product;
+    int price;
+    int quantity;
+    int total;
 
     public Order(String account) {
         initComponents();
-   
+      
 
     }
 
@@ -26,8 +31,8 @@ public class Order extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         fields = new javax.swing.JPanel();
         product_field = new javax.swing.JTextField();
-        qauntity_field = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        quantity_field = new javax.swing.JSpinner();
+        price_field = new javax.swing.JTextField();
         total_field = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         buttons = new javax.swing.JPanel();
@@ -82,12 +87,28 @@ public class Order extends javax.swing.JFrame {
         });
         fields.add(product_field);
 
-        qauntity_field.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        fields.add(qauntity_field);
+        quantity_field.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        quantity_field.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        quantity_field.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        quantity_field.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                quantity_fieldStateChanged(evt);
+            }
+        });
+        quantity_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                quantity_fieldKeyTyped(evt);
+            }
+        });
+        fields.add(quantity_field);
 
-        jSpinner1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        fields.add(jSpinner1);
+        price_field.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        price_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                price_fieldKeyReleased(evt);
+            }
+        });
+        fields.add(price_field);
 
         total_field.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         total_field.setName(""); // NOI18N
@@ -147,6 +168,37 @@ public class Order extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_product_fieldActionPerformed
 
+    private void quantity_fieldStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_quantity_fieldStateChanged
+        listenTotal();
+    }//GEN-LAST:event_quantity_fieldStateChanged
+
+    private void quantity_fieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantity_fieldKeyTyped
+        listenTotal();        // TODO add your handling code here:
+    }//GEN-LAST:event_quantity_fieldKeyTyped
+
+    private void price_fieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_price_fieldKeyReleased
+        listenTotal();
+    }//GEN-LAST:event_price_fieldKeyReleased
+
+    void listenTotal() {
+        if ("0".equals(quantity_field.getValue().toString())) {
+             total_field.setText("");
+            return;
+        }
+        if (price_field.getText().trim().isEmpty()) {
+            return;
+        }
+        String quantityField = quantity_field.getValue().toString();
+        String priceField = price_field.getText();
+        int quantityValue = Integer.valueOf(quantityField);
+        int priceValue = Integer.valueOf(priceField);
+        if (quantityValue > 0 && priceValue > 0) {
+            int totaValue = priceValue * quantityValue;
+            total_field.setText(String.valueOf(totaValue));
+        }
+     
+    }
+
     public static void main(String args[]) {
         FlatDarculaLaf.setup();
         java.awt.EventQueue.invokeLater(() -> {
@@ -169,11 +221,11 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel labels;
+    private javax.swing.JTextField price_field;
     private javax.swing.JTextField product_field;
-    private javax.swing.JTextField qauntity_field;
+    private javax.swing.JSpinner quantity_field;
     private javax.swing.JPanel table_holder;
     private javax.swing.JTextField total_field;
     // End of variables declaration//GEN-END:variables
