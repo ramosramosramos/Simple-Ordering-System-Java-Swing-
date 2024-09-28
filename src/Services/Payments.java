@@ -17,12 +17,15 @@ public class Payments {
 
             pst = conn.prepareStatement("Select sum(cash) as 'cash' from payments");
             rs = pst.executeQuery();
-            PreparedStatement getGrandTotal = conn.prepareStatement("Select sum(total) as 'grand_total' from orders");
+            PreparedStatement getGrandTotal = conn.prepareStatement("Select sum(total) as 'grand_total' from orders where deleted_at = 'null'");
+       
             ResultSet rsGrandTotal = getGrandTotal.executeQuery();
             while (rs.next() && rsGrandTotal.next()) {
                 if (rs.getInt("cash") != 0) {
                     double balance = rs.getDouble("cash") - rsGrandTotal.getDouble("grand_total");
                     balance_label.setText(String.valueOf(balance));
+                }else{
+                    balance_label.setText("");
                 }
 
                 cash_label.setText(rs.getString("cash"));

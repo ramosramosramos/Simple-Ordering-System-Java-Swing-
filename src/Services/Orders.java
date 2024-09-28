@@ -2,9 +2,12 @@ package Services;
 
 import java.awt.HeadlessException;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
@@ -47,13 +50,20 @@ public class Orders {
     }
 
     public static void destroyAll() {
+    
+        SimpleDateFormat format = new SimpleDateFormat("mm,MM,yyy");
+        String date = format.format(new Date());
+
         int ask = JOptionPane.showConfirmDialog(null, "Are you want to delete all orders?");
 
         if (ask == JOptionPane.YES_OPTION) {
             try {
-                pst = conn.prepareStatement("Truncate table orders");
+                pst = conn.prepareStatement("Update orders set deleted_at =?");
+                pst.setString(1,date);
                 pst.executeUpdate();
-
+                
+                PreparedStatement delete_trash = conn.prepareStatement("Truncate table payments");
+                delete_trash.executeUpdate();
             } catch (SQLException | HeadlessException e) {
                 System.err.println(e);
             }

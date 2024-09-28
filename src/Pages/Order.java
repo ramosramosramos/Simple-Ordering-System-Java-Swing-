@@ -58,6 +58,7 @@ public final class Order extends javax.swing.JFrame {
         total_field = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         modeButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         tables_panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table =  new Components.CustomizeTable();
@@ -252,6 +253,7 @@ public final class Order extends javax.swing.JFrame {
 
         form_holder_1.add(fields);
 
+        modeButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         modeButton.setText("Light Mode");
         modeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,6 +261,10 @@ public final class Order extends javax.swing.JFrame {
             }
         });
         jPanel1.add(modeButton);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setText("View order history");
+        jPanel1.add(jButton1);
 
         form_holder_1.add(jPanel1);
 
@@ -336,6 +342,7 @@ public final class Order extends javax.swing.JFrame {
     private void clear_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_buttonActionPerformed
         Services.Orders.destroyAll();
         index();
+        payementIndex();
     }//GEN-LAST:event_clear_buttonActionPerformed
 
     private void clear_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_button1ActionPerformed
@@ -401,6 +408,7 @@ public final class Order extends javax.swing.JFrame {
         String quantity = quantity_field.getValue().toString();
         String price = price_field.getText();
         if (product.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill all the fields");
             return;
         }
         Services.Orders.store(product, quantity, price);
@@ -454,6 +462,7 @@ public final class Order extends javax.swing.JFrame {
     private javax.swing.JPanel form_holder;
     private javax.swing.JPanel form_holder_1;
     private javax.swing.JLabel grand_total_label;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
