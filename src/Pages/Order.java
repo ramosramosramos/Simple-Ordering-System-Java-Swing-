@@ -33,9 +33,10 @@ public final class Order extends javax.swing.JFrame {
         total_field = new javax.swing.JTextField();
         labels = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         add_product_button = new javax.swing.JButton();
-        clear_button1 = new javax.swing.JButton();
         clear_button = new javax.swing.JButton();
+        clear_button1 = new javax.swing.JButton();
         buttons = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table =  new Components.CustomizeTable();
@@ -80,7 +81,7 @@ public final class Order extends javax.swing.JFrame {
         uantity_panel.add(jLabel2);
 
         quantity_field.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        quantity_field.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99999, 1));
+        quantity_field.setModel(new javax.swing.SpinnerNumberModel(1, 1, 99999, 1));
         quantity_field.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         quantity_field.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -149,8 +150,12 @@ public final class Order extends javax.swing.JFrame {
 
         form_holder_1.add(fields);
 
-        labels.setLayout(new java.awt.GridLayout(4, 0, 0, 40));
+        labels.setLayout(new java.awt.GridLayout(2, 0, 0, 40));
+
+        jPanel1.setLayout(new java.awt.GridLayout());
         labels.add(jPanel1);
+
+        jPanel2.setLayout(new java.awt.GridLayout(3, 0));
 
         add_product_button.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         add_product_button.setText("Summarize");
@@ -160,12 +165,7 @@ public final class Order extends javax.swing.JFrame {
                 add_product_buttonActionPerformed(evt);
             }
         });
-        labels.add(add_product_button);
-
-        clear_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        clear_button1.setText("Clear fields");
-        clear_button1.setPreferredSize(new java.awt.Dimension(240, 40));
-        labels.add(clear_button1);
+        jPanel2.add(add_product_button);
 
         clear_button.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         clear_button.setText("Clear table");
@@ -175,7 +175,14 @@ public final class Order extends javax.swing.JFrame {
                 clear_buttonActionPerformed(evt);
             }
         });
-        labels.add(clear_button);
+        jPanel2.add(clear_button);
+
+        clear_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        clear_button1.setText("Clear fields");
+        clear_button1.setPreferredSize(new java.awt.Dimension(240, 40));
+        jPanel2.add(clear_button1);
+
+        labels.add(jPanel2);
 
         form_holder_1.add(labels);
 
@@ -209,7 +216,7 @@ public final class Order extends javax.swing.JFrame {
 
         getContentPane().add(background, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(1033, 654));
+        setSize(new java.awt.Dimension(1053, 654));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -323,6 +330,7 @@ public final class Order extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel labels;
     private javax.swing.JTextField price_field;
