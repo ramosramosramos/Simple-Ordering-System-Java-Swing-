@@ -1,6 +1,7 @@
 package Pages.Auth;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 
 
@@ -185,7 +186,14 @@ public class Login extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        FlatDarculaLaf.setup();
+         boolean isDarkMode = Themes.Mode.getMode();
+
+        if (isDarkMode) {
+            FlatDarculaLaf.setup();
+        } else {
+            FlatMacLightLaf.setup();
+        }
+
         java.awt.EventQueue.invokeLater(() -> {
             new Login().setVisible(true);
         });

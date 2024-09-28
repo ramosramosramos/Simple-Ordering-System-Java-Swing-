@@ -1,6 +1,7 @@
 package Pages;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.sql.Connection;
 
 public class LoadingScreen extends javax.swing.JFrame {
@@ -58,7 +59,14 @@ public class LoadingScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        FlatDarculaLaf.setup();
+           boolean isDarkMode = Themes.Mode.getMode();
+
+        if (isDarkMode) {
+            FlatDarculaLaf.setup();
+        } else {
+            FlatMacLightLaf.setup();
+        }
+
         java.awt.EventQueue.invokeLater(() -> {
             new LoadingScreen().setVisible(true);
         });

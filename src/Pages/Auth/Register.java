@@ -1,6 +1,7 @@
 package Pages.Auth;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 public class Register extends javax.swing.JFrame {
 
@@ -187,7 +188,7 @@ public class Register extends javax.swing.JFrame {
     private void create_account_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_account_buttonActionPerformed
         new Login().setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_create_account_buttonActionPerformed
 
     private void username_fieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_username_fieldFocusGained
@@ -272,7 +273,14 @@ public class Register extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        FlatDarculaLaf.setup();
+        boolean isDarkMode = Themes.Mode.getMode();
+
+        if (isDarkMode) {
+            FlatDarculaLaf.setup();
+        } else {
+            FlatMacLightLaf.setup();
+        }
+
         java.awt.EventQueue.invokeLater(() -> {
             new Register().setVisible(true);
         });

@@ -1,6 +1,7 @@
 package Pages;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
@@ -86,11 +87,11 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-storeCash();
+        storeCash();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cash_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cash_fieldActionPerformed
-storeCash();
+        storeCash();
 
     }//GEN-LAST:event_cash_fieldActionPerformed
 
@@ -101,7 +102,14 @@ storeCash();
     }//GEN-LAST:event_cash_fieldKeyTyped
 
     public static void main(String args[]) {
-        FlatDarculaLaf.setup();
+        boolean isDarkMode = Themes.Mode.getMode();
+
+        if (isDarkMode) {
+            FlatDarculaLaf.setup();
+        } else {
+            FlatMacLightLaf.setup();
+        }
+
         java.awt.EventQueue.invokeLater(() -> {
             new Payment(new JFrame(), new JTable(), "").setVisible(true);
         });
@@ -115,12 +123,12 @@ storeCash();
     }
 
     void storeCash() {
-     Order update = new Order(account);
-       update.index();
-       update.payementIndex();
+        Order update = new Order(account);
+        update.index();
+        update.payementIndex();
         Services.Payments.store(cash_field.getText().trim());
         goBackToFrame();
-        
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
