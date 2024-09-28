@@ -1,15 +1,9 @@
 
 package Configuration;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
-/**
- *
- * @author User
- */
+import java.sql.*;
+
 public class JavaConnection {
 
     public static Connection getConnection() {
@@ -19,6 +13,8 @@ public class JavaConnection {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/catering_db", "root", "");
             Services.CreateTable.UsersTable(conn);
             Services.CreateTable.OrdersTable(conn);
+            Services.CreateTable.PaymentsTable(conn);
+            Services.CreateTable.Themestable(conn);
             return conn;
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println(e);

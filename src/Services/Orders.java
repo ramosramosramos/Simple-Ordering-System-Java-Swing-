@@ -22,7 +22,7 @@ public class Orders {
                     + "quantity as 'Qauntity',"
                     + "price as 'Price',"
                     + " total as 'Total'"
-                    + " from orders ");
+                    + " from orders where deleted_at = 'null' ");
             rs = pst.executeQuery();
             table.setModel(DbUtils.resultSetToTableModel(rs));
 
@@ -60,5 +60,20 @@ public class Orders {
         }
 
     }
+    
+    
+    public static void  updateTheme(String name){
+        try {   
+            pst = conn.prepareStatement("Update themes set mode =? where id = ?");
+            pst.setString(1, name);
+            pst.setInt(2, 1);
+            pst.executeUpdate();
+            
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        
+    }
+    
 
 }
