@@ -9,6 +9,9 @@ public class LoadingScreen extends javax.swing.JFrame {
     public LoadingScreen() {
         initComponents();
         conn = Configuration.JavaConnection.getConnection();
+          Services.CreateTable.UsersTable(conn);
+            Services.CreateTable.OrdersTable(conn);
+            Services.CreateTable.PaymentsTable(conn);
         new Thread(() -> {
             try {
                 for (int i = 0; i <= 100; i++) {

@@ -11,9 +11,7 @@ public class JavaConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/catering_db", "root", "");
-            Services.CreateTable.UsersTable(conn);
-            Services.CreateTable.OrdersTable(conn);
-            Services.CreateTable.PaymentsTable(conn);
+  
             Services.CreateTable.Themestable(conn);
             return conn;
         } catch (ClassNotFoundException | SQLException e) {

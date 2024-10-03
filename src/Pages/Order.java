@@ -505,13 +505,12 @@ public final class Order extends javax.swing.JFrame {
     public void onGlass() {
         rootPane.getGlassPane().setVisible(true);
     }
-    
-    
-    void updateTheme(){
-          if (Themes.Mode.getMode() == false) {
-           modeButton.setText("Turn on dark mode");
+
+    void updateTheme() {
+        if (Themes.Mode.getMode() == false) {
+            modeButton.setText("Turn on dark mode");
         } else {
-           modeButton.setText("Turn on light mode");
+            modeButton.setText("Turn on light mode");
         }
     }
 

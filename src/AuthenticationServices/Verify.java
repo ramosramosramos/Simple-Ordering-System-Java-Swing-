@@ -13,7 +13,7 @@ public class Verify {
     static Connection conn = Configuration.JavaConnection.getConnection();
     static PreparedStatement pst;
 
-    public static void login(String useranme, String password, JLabel error) {
+    public static boolean login(String useranme, String password, JLabel error) {
         String hashPassword = Tools.Password.hashPassword(password);
         try {
 
@@ -23,14 +23,16 @@ public class Verify {
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Login successfully");
-
+                return true;
             } else {
                 error.setText("Invalid Credentials");
+                return false;
             }
 
         } catch (SQLException | HeadlessException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     public static void register(String name, String username, String password) {

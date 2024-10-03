@@ -3,16 +3,10 @@ package Pages.Auth;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
-
-
 public class Login extends javax.swing.JFrame {
-
-
 
     public Login() {
         initComponents();
-  
-
 
     }
 
@@ -176,17 +170,19 @@ public class Login extends javax.swing.JFrame {
             password_error_label.setText("Password field is empty");
             return;
         }
-        AuthenticationServices.Verify.login(
+        if (AuthenticationServices.Verify.login(
                 username,
                 password,
                 username_error_label
-        );
-        new Pages.Order(username).setVisible(true);
-        this.dispose();
+        )) {
+            new Pages.Order(username).setVisible(true);
+            this.dispose();
+        }
+
     }
 
     public static void main(String args[]) {
-         boolean isDarkMode = Themes.Mode.getMode();
+        boolean isDarkMode = Themes.Mode.getMode();
 
         if (isDarkMode) {
             FlatDarculaLaf.setup();
