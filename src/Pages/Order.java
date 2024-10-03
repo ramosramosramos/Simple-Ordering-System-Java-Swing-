@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public final class Order extends javax.swing.JFrame {
 
@@ -14,6 +15,11 @@ public final class Order extends javax.swing.JFrame {
 
     public Order(String account) {
         initComponents();
+//        if(account.isEmpty()){
+//            JOptionPane.showMessageDialog(null, "You are not authorized ,please log in your account first");
+//              System.exit(0);
+//            
+//        }
         this.account = account;
         glassPane();
         updateTheme();
@@ -26,6 +32,12 @@ public final class Order extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        trash_panel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        trash_table = new javax.swing.JTable();
+        label = new javax.swing.JLabel();
+        tableOrders_popMenu = new javax.swing.JPopupMenu();
+        remove_product = new javax.swing.JMenuItem();
         background = new javax.swing.JPanel();
         back_ground_1 = new javax.swing.JPanel();
         form_holder = new javax.swing.JPanel();
@@ -62,6 +74,32 @@ public final class Order extends javax.swing.JFrame {
         tables_panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table =  new Components.CustomizeTable();
+
+        trash_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        trash_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(trash_table);
+
+        trash_panel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 710, 450));
+        trash_panel.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 810, 20));
+
+        remove_product.setText("Remove Product");
+        remove_product.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remove_productActionPerformed(evt);
+            }
+        });
+        tableOrders_popMenu.add(remove_product);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Orders");
@@ -263,7 +301,12 @@ public final class Order extends javax.swing.JFrame {
         jPanel1.add(modeButton);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setText("View order history");
+        jButton1.setText("Trash");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
 
         form_holder_1.add(jPanel1);
@@ -283,6 +326,11 @@ public final class Order extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tableMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         tables_panel.add(jScrollPane1);
@@ -325,6 +373,7 @@ public final class Order extends javax.swing.JFrame {
         if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
+
     }//GEN-LAST:event_price_fieldKeyTyped
 
     private void quantity_fieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantity_fieldFocusGained
@@ -374,21 +423,59 @@ public final class Order extends javax.swing.JFrame {
 
     }//GEN-LAST:event_modeButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      Services.Orders.updateTrash(trash_table);
+        JOptionPane.showMessageDialog(null, trash_panel, "Trash", JOptionPane.DEFAULT_OPTION);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMousePressed
+   if(SwingUtilities.isRightMouseButton(evt)){
+       tableOrders_popMenu.show(table, evt.getX(), evt.getY());
+   }
+    }//GEN-LAST:event_tableMousePressed
+
+    private void remove_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_productActionPerformed
+        try {
+            String id = table.getValueAt(table.getSelectedRow(),0).toString();
+            Services.Orders.destroy(id);
+            index();
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_remove_productActionPerformed
+
     void listenTotal() {
-        if ("0".equals(quantity_field.getValue().toString())) {
-            total_field.setText("");
-            return;
-        }
-        if (price_field.getText().trim().isEmpty()) {
-            return;
-        }
-        String quantityField = quantity_field.getValue().toString();
-        String priceField = price_field.getText();
-        int quantityValue = Integer.valueOf(quantityField);
-        int priceValue = Integer.valueOf(priceField);
-        if (quantityValue > 0 && priceValue > 0) {
-            int totaValue = priceValue * quantityValue;
-            total_field.setText(String.valueOf(totaValue));
+
+        try {
+
+            if (price_field.getText().trim().isEmpty()) {
+                total_field.setText("");
+            }
+            if ("0".equals(quantity_field.getValue().toString())) {
+                total_field.setText("");
+                return;
+            }
+            if (price_field.getText().trim().isEmpty()) {
+                return;
+            }
+            if (Long.valueOf(price_field.getText().trim()) >= 999999999) {
+                price_field.setText("");
+                total_field.setText("");
+                return;
+            }
+
+            String quantityField = quantity_field.getValue().toString().trim();
+            String priceField = price_field.getText().trim();
+            long quantityValue = Long.valueOf(quantityField);
+            long priceValue = Long.valueOf(priceField);
+            if (quantityValue > 0 && priceValue > 0) {
+                long totaValue = priceValue * quantityValue;
+                total_field.setText(String.valueOf(totaValue));
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
 
     }
@@ -473,6 +560,8 @@ public final class Order extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label;
     private javax.swing.JPanel labels;
     private javax.swing.JButton modeButton;
     private javax.swing.JTextField price_field;
@@ -481,11 +570,15 @@ public final class Order extends javax.swing.JFrame {
     private javax.swing.JPanel product_panel;
     private javax.swing.JSpinner quantity_field;
     private javax.swing.JPanel quantity_panel;
+    private javax.swing.JMenuItem remove_product;
     private javax.swing.JTable table;
+    private javax.swing.JPopupMenu tableOrders_popMenu;
     private javax.swing.JPanel tables_panel;
     private javax.swing.JPanel top_labels;
     private javax.swing.JTextField total_field;
     private javax.swing.JPanel total_panel;
+    private javax.swing.JPanel trash_panel;
+    private javax.swing.JTable trash_table;
     // End of variables declaration//GEN-END:variables
    void glassPane() {
         rootPane.setGlassPane(new JComponent() {

@@ -15,7 +15,7 @@ public class CreateTable {
                     + "created_at timestamp default current_timestamp"
                     + ")");
             create_user.executeUpdate();
-            System.out.println("Table users configuration is success");
+//            System.out.println("Table users configuration is success");
 
         } catch (Exception e) {
             System.err.println(e+"users");
@@ -32,7 +32,7 @@ public class CreateTable {
                     + "total decimal(10,2) AS (quantity * price) STORED,"
                     + "deleted_at varchar(255) default 'null')");
             create_user.executeUpdate();
-            System.out.println("Table orders configuration is success");
+//            System.out.println("Table orders configuration is success");
         } catch (Exception e) {
             System.err.println(e.getMessage()+"orders");
         }
@@ -44,7 +44,7 @@ public class CreateTable {
                     + "id int primary key auto_increment,"
                     + "cash int not null)");
             create_payments.executeUpdate();
-            System.out.println("Table payments configuration is success");
+//            System.out.println("Table payments configuration is success");
 
         } catch (Exception e) {
             System.err.println(e.getMessage()+"payments");
@@ -59,7 +59,7 @@ public class CreateTable {
                     + "mode varchar(20) default 'darkmode')");
             create_payments.executeUpdate();
             
-            System.out.println("Table themes configuration is success");
+//            System.out.println("Table themes configuration is success");
             
             PreparedStatement insertMode = conn.prepareStatement("Insert into themes(mode) values(?)");
             insertMode.setString(1, "darkmode");

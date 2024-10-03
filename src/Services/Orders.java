@@ -17,15 +17,37 @@ public class Orders {
     static Connection conn = Configuration.JavaConnection.getConnection();
     static PreparedStatement pst;
     static ResultSet rs;
+    static SimpleDateFormat format = new SimpleDateFormat("mm,MM,yyy");
+
+    static String date;
+
+  
 
     public static void update(JTable table) {
         try {
-            pst = conn.prepareStatement("Select"
+            pst = conn.prepareStatement("Select id as 'Product ID', "
                     + " product as 'Product',"
                     + "quantity as 'Qauntity',"
                     + "price as 'Price',"
                     + " total as 'Total'"
                     + " from orders where deleted_at = 'null' ");
+            rs = pst.executeQuery();
+            table.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
+    public static void updateTrash(JTable table) {
+        try {
+            pst = conn.prepareStatement("Select id as 'Product ID',"
+                    + " product as 'Product',"
+                    + "quantity as 'Qauntity',"
+                    + "price as 'Price',"
+                    + " total as 'Total'"
+                    + " from orders where deleted_at != 'null' ");
             rs = pst.executeQuery();
             table.setModel(DbUtils.resultSetToTableModel(rs));
 
@@ -50,18 +72,15 @@ public class Orders {
     }
 
     public static void destroyAll() {
-    
-        SimpleDateFormat format = new SimpleDateFormat("mm,MM,yyy");
-        String date = format.format(new Date());
-
+ date = format.format(new Date());
         int ask = JOptionPane.showConfirmDialog(null, "Are you want to delete all orders?");
 
         if (ask == JOptionPane.YES_OPTION) {
             try {
                 pst = conn.prepareStatement("Update orders set deleted_at =?");
-                pst.setString(1,date);
+                pst.setString(1, date);
                 pst.executeUpdate();
-                
+
                 PreparedStatement delete_trash = conn.prepareStatement("Truncate table payments");
                 delete_trash.executeUpdate();
             } catch (SQLException | HeadlessException e) {
@@ -70,20 +89,32 @@ public class Orders {
         }
 
     }
-    
-    
-    public static void  updateTheme(String name){
-        try {   
+
+    public static void updateTheme(String name) {
+        try {
             pst = conn.prepareStatement("Update themes set mode =? where id = ?");
             pst.setString(1, name);
             pst.setInt(2, 1);
             pst.executeUpdate();
-            
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        
+
     }
-    
+
+    public static void destroy(String id) {
+         date = format.format(new Date());
+        try {
+          
+            pst = conn.prepareStatement("Update  orders set deleted_at = ? where id =? ");
+            pst.setString(1, date);
+            pst.setString(2, id);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
 
 }
