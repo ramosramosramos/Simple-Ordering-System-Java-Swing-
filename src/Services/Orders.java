@@ -116,5 +116,18 @@ public class Orders {
         }
 
     }
+    public static void restore(String id) {
+         
+        try {
+          
+            pst = conn.prepareStatement("Update  orders set deleted_at = ? where id =? ");
+            pst.setString(1, "null");
+            pst.setString(2, id);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
 
 }

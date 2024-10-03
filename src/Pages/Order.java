@@ -38,6 +38,8 @@ public final class Order extends javax.swing.JFrame {
         label = new javax.swing.JLabel();
         tableOrders_popMenu = new javax.swing.JPopupMenu();
         remove_product = new javax.swing.JMenuItem();
+        tableTrash_popMenu = new javax.swing.JPopupMenu();
+        restoreProduct = new javax.swing.JMenuItem();
         background = new javax.swing.JPanel();
         back_ground_1 = new javax.swing.JPanel();
         form_holder = new javax.swing.JPanel();
@@ -88,6 +90,11 @@ public final class Order extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        trash_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                trash_tableMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(trash_table);
 
         trash_panel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 710, 450));
@@ -100,6 +107,14 @@ public final class Order extends javax.swing.JFrame {
             }
         });
         tableOrders_popMenu.add(remove_product);
+
+        restoreProduct.setText("Restore");
+        restoreProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restoreProductActionPerformed(evt);
+            }
+        });
+        tableTrash_popMenu.add(restoreProduct);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Orders");
@@ -424,27 +439,45 @@ public final class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_modeButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      Services.Orders.updateTrash(trash_table);
+        Services.Orders.updateTrash(trash_table);
         JOptionPane.showMessageDialog(null, trash_panel, "Trash", JOptionPane.DEFAULT_OPTION);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMousePressed
-   if(SwingUtilities.isRightMouseButton(evt)){
-       tableOrders_popMenu.show(table, evt.getX(), evt.getY());
-   }
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            tableOrders_popMenu.show(table, evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_tableMousePressed
 
     private void remove_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_productActionPerformed
         try {
-            String id = table.getValueAt(table.getSelectedRow(),0).toString();
+            String id = table.getValueAt(table.getSelectedRow(), 0).toString();
             Services.Orders.destroy(id);
             index();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_remove_productActionPerformed
+
+    private void trash_tableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trash_tableMousePressed
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            tableTrash_popMenu.show(trash_table,evt.getX() ,evt.getY());
+        }
+    }//GEN-LAST:event_trash_tableMousePressed
+
+    private void restoreProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreProductActionPerformed
+       try {
+            String id = trash_table.getValueAt(trash_table.getSelectedRow(), 0).toString();
+            Services.Orders.restore(id);
+               Services.Orders.updateTrash(trash_table);
+            index();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_restoreProductActionPerformed
 
     void listenTotal() {
 
@@ -571,8 +604,10 @@ public final class Order extends javax.swing.JFrame {
     private javax.swing.JSpinner quantity_field;
     private javax.swing.JPanel quantity_panel;
     private javax.swing.JMenuItem remove_product;
+    private javax.swing.JMenuItem restoreProduct;
     private javax.swing.JTable table;
     private javax.swing.JPopupMenu tableOrders_popMenu;
+    private javax.swing.JPopupMenu tableTrash_popMenu;
     private javax.swing.JPanel tables_panel;
     private javax.swing.JPanel top_labels;
     private javax.swing.JTextField total_field;
