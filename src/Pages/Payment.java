@@ -123,7 +123,7 @@ public class Payment extends javax.swing.JFrame {
     }
 
     void storeCash() {
-        Order update = new Order(account);
+        Index update = new Index(account);
         update.index();
         update.payementIndex();
         Services.Payments.store(cash_field.getText().trim());

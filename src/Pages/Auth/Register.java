@@ -268,7 +268,7 @@ public class Register extends javax.swing.JFrame {
             return;
         }
         AuthenticationServices.Verify.register(name, username, password);
-        new Pages.Order(username).setVisible(true);
+        new Pages.Index(username).setVisible(true);
         this.dispose();
     }
 

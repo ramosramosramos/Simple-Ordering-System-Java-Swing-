@@ -58,12 +58,14 @@ public class Orders {
     }
 
     public static void store(String product, String quantity, String price) {
+
         try {
             pst = conn.prepareStatement("Insert into orders(product,quantity,price) values(?,?,?)");
             pst.setString(1, product);
             pst.setString(2, quantity);
             pst.setString(3, price);
             pst.executeUpdate();
+
 
         } catch (Exception e) {
             System.err.println(e);

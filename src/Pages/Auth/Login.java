@@ -175,7 +175,7 @@ public class Login extends javax.swing.JFrame {
                 password,
                 username_error_label
         )) {
-            new Pages.Order(username).setVisible(true);
+            new Pages.Index(username).setVisible(true);
             this.dispose();
         }
 
