@@ -51,7 +51,8 @@ public class Reciept extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        main = new javax.swing.JPanel();
+        mainRecieptPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
@@ -65,12 +66,14 @@ public class Reciept extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        main.setLayout(new java.awt.BorderLayout());
+
+        mainRecieptPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Order Reciept");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 0, 260, 40));
+        mainRecieptPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 0, 260, 40));
 
         jButton1.setText("x");
         jButton1.setBorder(null);
@@ -79,9 +82,9 @@ public class Reciept extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 50, 40));
+        mainRecieptPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 40, 40));
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        main.add(mainRecieptPanel, java.awt.BorderLayout.PAGE_START);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(204, 204, 204)));
         jPanel3.setPreferredSize(new java.awt.Dimension(390, 50));
@@ -108,16 +111,18 @@ public class Reciept extends javax.swing.JFrame {
 
         mainPanel.add(jPanel3);
 
-        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
+        main.add(mainPanel, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(main, java.awt.BorderLayout.CENTER);
 
         setSize(new java.awt.Dimension(400, 700));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        order.setEnabled(true);
-        order.offGlass();
-        dispose();
+       order.setEnabled(true);
+       order.offGlass();
+       dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
@@ -137,8 +142,9 @@ public class Reciept extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    public javax.swing.JPanel main;
     private javax.swing.JPanel mainPanel;
+    public javax.swing.JPanel mainRecieptPanel;
     // End of variables declaration//GEN-END:variables
 }

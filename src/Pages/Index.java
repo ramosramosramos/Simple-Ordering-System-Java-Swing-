@@ -18,6 +18,8 @@ public final class Index extends javax.swing.JFrame {
 
     public Index(String account) {
         initComponents();
+         IP_ADDRESS = Tools.IP.getIPAddress();
+         ip_address_label.setText(IP_ADDRESS);
 //        if(account.isEmpty()){
 //            JOptionPane.showMessageDialog(null, "You are not authorized ,please log in your account first");
 //              System.exit(0);
@@ -57,11 +59,10 @@ public final class Index extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         balance_label = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        apyment_button = new javax.swing.JButton();
-        clear_button1 = new javax.swing.JButton();
         add_product_button2 = new javax.swing.JButton();
-        clear_button = new javax.swing.JButton();
         add_product_button1 = new javax.swing.JButton();
+        clear_button1 = new javax.swing.JButton();
+        clear_button = new javax.swing.JButton();
         fields = new javax.swing.JPanel();
         product_panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -75,11 +76,15 @@ public final class Index extends javax.swing.JFrame {
         total_panel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         total_field = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        apyment_button = new javax.swing.JButton();
         add_product_button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         modeButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        add_product_button3 = new javax.swing.JButton();
+        add_product_button4 = new javax.swing.JButton();
+        ip_address_label = new javax.swing.JLabel();
         tables_panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table =  new Components.CustomizeTable();
@@ -174,14 +179,25 @@ public final class Index extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.GridLayout(4, 0));
 
-        apyment_button.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        apyment_button.setText("Add payment");
-        apyment_button.addActionListener(new java.awt.event.ActionListener() {
+        add_product_button2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        add_product_button2.setText("Print preview");
+        add_product_button2.setPreferredSize(new java.awt.Dimension(240, 40));
+        add_product_button2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                apyment_buttonActionPerformed(evt);
+                add_product_button2ActionPerformed(evt);
             }
         });
-        jPanel2.add(apyment_button);
+        jPanel2.add(add_product_button2);
+
+        add_product_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        add_product_button1.setText("Print order");
+        add_product_button1.setPreferredSize(new java.awt.Dimension(240, 40));
+        add_product_button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_product_button1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(add_product_button1);
 
         clear_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         clear_button1.setText("Reset");
@@ -193,16 +209,6 @@ public final class Index extends javax.swing.JFrame {
         });
         jPanel2.add(clear_button1);
 
-        add_product_button2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        add_product_button2.setText("Print preview");
-        add_product_button2.setPreferredSize(new java.awt.Dimension(240, 40));
-        add_product_button2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_product_button2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(add_product_button2);
-
         clear_button.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         clear_button.setText("Cancel order");
         clear_button.setPreferredSize(new java.awt.Dimension(240, 40));
@@ -212,16 +218,6 @@ public final class Index extends javax.swing.JFrame {
             }
         });
         jPanel2.add(clear_button);
-
-        add_product_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        add_product_button1.setText("Print order");
-        add_product_button1.setPreferredSize(new java.awt.Dimension(240, 40));
-        add_product_button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_product_button1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(add_product_button1);
 
         labels.add(jPanel2);
 
@@ -323,7 +319,15 @@ public final class Index extends javax.swing.JFrame {
             }
         });
         total_panel.add(total_field);
-        total_panel.add(jLabel6);
+
+        apyment_button.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        apyment_button.setText("Add payment");
+        apyment_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apyment_buttonActionPerformed(evt);
+            }
+        });
+        total_panel.add(apyment_button);
 
         add_product_button.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         add_product_button.setText("Add order");
@@ -356,6 +360,36 @@ public final class Index extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(250, 100));
+        jPanel3.setLayout(new java.awt.GridLayout(3, 0));
+
+        add_product_button3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        add_product_button3.setText("Add IP  gateway");
+        add_product_button3.setPreferredSize(new java.awt.Dimension(240, 40));
+        add_product_button3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_product_button3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(add_product_button3);
+
+        add_product_button4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        add_product_button4.setText("Use automatic IP Gateway");
+        add_product_button4.setPreferredSize(new java.awt.Dimension(240, 40));
+        add_product_button4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_product_button4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(add_product_button4);
+
+        ip_address_label.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        ip_address_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ip_address_label.setText("asdasd");
+        jPanel3.add(ip_address_label);
+
+        jPanel1.add(jPanel3);
 
         form_holder_1.add(jPanel1);
 
@@ -514,24 +548,42 @@ public final class Index extends javax.swing.JFrame {
 
     private void add_product_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_product_button1ActionPerformed
         onGlass();
-        IP_ADDRESS = Tools.IP.getIPAddress();
+        Reciept reciept = new Reciept(this, grand_total_label.getText(), cash_label.getText(), balance_label.getText());
+        reciept.setVisible(true);
+        Tools.PrintHelper.getPrintPanel(reciept.main);
+        
+       
         MESSAGE = "Hello customer,this your billing history: GrandTotal:" + grand_total_label.getText()
                 + ",Cash:" + cash_label.getText() + ", Balance:" + balance_label.getText();
         String phone_number = JOptionPane.showInputDialog(null, "Enter a the customer's number");
-        
+
         SEND_TO = phone_number;
-    Tools.Alert.SendMessage(IP_ADDRESS, SEND_TO, MESSAGE, true);
+        Tools.Alert.SendMessage(IP_ADDRESS, SEND_TO, MESSAGE, true);
         offGlass();
     }//GEN-LAST:event_add_product_button1ActionPerformed
 
     private void add_product_button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_product_button2ActionPerformed
-       onGlass();
-       new Reciept(this,grand_total_label.getText(),cash_label.getText(),balance_label.getText()).setVisible(true);
+        onGlass();
+        new Reciept(this, grand_total_label.getText(), cash_label.getText(), balance_label.getText()).setVisible(true);
     }//GEN-LAST:event_add_product_button2ActionPerformed
 
     private void total_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_total_fieldActionPerformed
-         store();
+        store();
     }//GEN-LAST:event_total_fieldActionPerformed
+
+    private void add_product_button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_product_button3ActionPerformed
+        String ip = JOptionPane.showInputDialog(null, "Enter IP Default Gateway");
+        if(!ip.trim().isEmpty()){
+           IP_ADDRESS = ip;
+           ip_address_label.setText(IP_ADDRESS);
+        }
+        
+    }//GEN-LAST:event_add_product_button3ActionPerformed
+
+    private void add_product_button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_product_button4ActionPerformed
+       IP_ADDRESS = Tools.IP.getIPAddress();
+         ip_address_label.setText(IP_ADDRESS);
+    }//GEN-LAST:event_add_product_button4ActionPerformed
 
     void listenTotal() {
 
@@ -627,6 +679,8 @@ public final class Index extends javax.swing.JFrame {
     private javax.swing.JButton add_product_button;
     private javax.swing.JButton add_product_button1;
     private javax.swing.JButton add_product_button2;
+    private javax.swing.JButton add_product_button3;
+    private javax.swing.JButton add_product_button4;
     private javax.swing.JButton apyment_button;
     private javax.swing.JPanel back_ground_1;
     private javax.swing.JPanel background;
@@ -638,17 +692,18 @@ public final class Index extends javax.swing.JFrame {
     private javax.swing.JPanel form_holder;
     private javax.swing.JPanel form_holder_1;
     private javax.swing.JLabel grand_total_label;
+    private javax.swing.JLabel ip_address_label;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label;
@@ -687,13 +742,14 @@ public final class Index extends javax.swing.JFrame {
 
     }
 
-
     public void onGlass() {
         rootPane.getGlassPane().setVisible(true);
     }
+
     public void offGlass() {
         rootPane.getGlassPane().setVisible(false);
     }
+
     void updateTheme() {
         if (Themes.Mode.getMode() == false) {
             modeButton.setText("Turn on dark mode");
